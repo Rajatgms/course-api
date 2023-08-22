@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TopicService {
@@ -22,6 +23,25 @@ public class TopicService {
 
     public Topic getTopic(String id) {
         return topics.stream().filter(t -> t.getId().equals(id)).findFirst().get();
+    }
+
+    public void addTopic(Topic topic) {
+        topics.add(topic);
+    }
+
+    public void updateTopic(String id, Topic updateTopic) {
+        for (int i = 0; i < topics.size(); i++) {
+            Topic t = topics.get(i);
+            if(t.getId().equals(id)) {
+                topics.set(i, updateTopic);
+                return;
+            }
+        }
+
+    }
+
+    public void deleteTopic(String id) {
+        topics.removeIf(t -> t.getId().equals(id));
     }
 
 }
