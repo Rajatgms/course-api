@@ -1,29 +1,30 @@
-package com.example.courseapi.topic;
-
+package com.example.courseapi.course;
+import com.example.courseapi.topic.Topic;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Topic {
+public class Course {
     @Id
     private String id;
     private String name;
     private String description;
 
-    public Topic() {
+    @ManyToOne
+    private Topic topic;
+
+    public Course() {
 
     }
 
-    public Topic(String id) {
-        this.id = id;
-    }
-
-    public Topic(String id, String name, String description) {
+    public Course(String id, String name, String description, String topicId) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.topic = new Topic(topicId, "", "");
     }
 
     public String getId() {
@@ -49,4 +50,13 @@ public class Topic {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 }
+
